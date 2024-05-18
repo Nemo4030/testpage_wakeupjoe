@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JOE'S PRESALE</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                background-color: white;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            header {
+                background-image: url('sleepy_joe_10.png');
+                background-size: cover;
+                background-position: center;
+                height: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+            .content {
+                width: 90%;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            .content h1 {
+                font-size: 8vw;
+                margin-bottom: 30px;
+            }
+            .timer {
+                font-size: 6vw;
+                padding: 10px;
+                border: 2px solid black;
+                display: inline-block;
+            }
+            .button-container {
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: center;
+                gap: 20px; /* Abstand zwischen den Buttons */
+                margin-top: 30px; /* Abstand zum Timer */
+            }
+            .buy-button, .staking-button {
+                display: inline-block;
+                padding: 15px 30px;
+                font-size: 20px;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                box-shadow: 0 5px #ff0000, 0 10px 10px rgba(0, 0, 0, 0.2);
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .buy-button {
+                background: linear-gradient(145deg, #ff0000, #0400ff);
+            }
+            .buy-button:active {
+                box-shadow: 0 2px #1100ff, 0 5px 5px rgba(0, 0, 0, 0.2);
+                transform: translateY(3px);
+            }
+            .staking-button {
+                background: linear-gradient(145deg, #ff0000, #0400ff);
+            }
+            .staking-button:active {
+                box-shadow: 0 2px #0400ff, 0 5px 5px rgba(0, 0, 0, 0.2);
+                transform: translateY(3px);
+            }
+            .stats {
+                display: flex;
+                justify-content: center; /* Zentrieren der Stats */
+                align-items: center;
+                flex-wrap: wrap;
+                margin: 20px 0; /* Abstand zu anderen Elementen */
+            }
+            .stats div {
+                font-size: 4vw;
+                display: flex;
+                align-items: center;
+                margin: 10px 20px; /* Abstand zwischen den Stats */
+                min-width: 200px;
+            }
+            .stats img {
+                max-width: 50px;
+                margin-right: 10px;
+            }
+            .meme-section {
+                margin: 40px 0;
+            }
+            .meme-section img {
+                width: 100%;
+                max-width: 400px;
+                height: auto;
+                margin: 10px 0;
+            }
+            .meme-section h2 {
+                font-size: 6vw;
+                margin: 10px 0;
+            }
+            .footer {
+                margin: 40px 0;
+                font-size: 4vw;
+            }
+            .footer a {
+                text-decoration: none;
+                color: black;
+                margin: 0 20px;
+            }
+            .tokenomics {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            .tokenomics h2 {
+                font-size: 8vw;
+                margin-bottom: 20px;
+                color: black;
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            }
+            .chart-container {
+                width: 100%;
+                max-width: 750px;
+                height: auto;
+            }
+            @media (min-width: 768px) {
+                .content h1 {
+                    font-size: 64px;
+                }
+                .timer {
+                    font-size: 48px;
+                }
+                .stats div {
+                    font-size: 24px;
+                }
+                .meme-section h2 {
+                    font-size: 32px;
+                }
+                .footer {
+                    font-size: 24px;
+                }
+                .tokenomics h2 {
+                    font-size: 36px;
+                }
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    
+    <body>
+        <header>
+            <img src="sleepy_joe_10.png" alt="Header Image" style="width: 100%;">
+        </header>
+        <div class="content">
+            <h1>JOE'S PRESALE ENDS IN</h1>
+            <div class="timer-container">
+                <div class="timer" id="timer">TIMER</div>
+            </div>
+            <div class="button-container">
+                <button class="buy-button" onclick="alert('wake up!')">Buy Now</button>
+                <button class="staking-button" onclick="alert('Stake now!')">Staking</button>
+            </div>
+            <div class="stats">
+                <div>
+                    <img id="raised-img" src="star.png" alt="Raised Image">Already raised: 584.662
+                </div>
+                <div>
+                    <img id="supply-img" src="star.png" alt="Supply Image">Total supply: 10.000.000.000
+                </div>
+            </div>
+            <div class="meme-section">
+                <img id="scalable-img" src="Trump_I_Want_YOU.png" alt="Dein Bild">
+            </div>
+            <div class="tokenomics">
+                <h2>Tokenomics</h2>
+                <div class="chart-container">
+                    <canvas id="tokenomicsChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <script>
+            function scaleImage(scale) {
+                const img = document.getElementById('scalable-img');
+                img.style.width = scale + '%';
+            }
+    
+            function startTimer(duration, display) {
+                let timer = duration, hours, minutes, seconds;
+                setInterval(function () {
+                    hours = parseInt(timer / 3600, 10);
+                    minutes = parseInt((timer % 3600) / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+    
+                    hours = hours < 10 ? "0" + hours : hours;
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+    
+                    display.textContent = hours + ":" + minutes + ":" + seconds;
+    
+                    if (--timer < 0) {
+                        timer = 0;
+                    }
+                }, 1000);
+            }
+
+        let chartInstance;
+        function updateChart() {
+            const ctx = document.getElementById('tokenomicsChart').getContext('2d');
+            const data = {
+                labels: ['Presale (40%)', 'Marketing (15%)', 'Development (20%)', 'Staking (10%)', 'Liquidity (15%)'],
+                datasets: [{
+                    data: [4000000000, 1500000000, 2000000000, 1000000000, 1500000000],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#4BC0C0']
+                }]
+            };
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true
+                }
+            });
+        }
+
+        window.onload = function () {
+            const fiveHours = 60 * 60 * 5;
+            const display = document.getElementById('timer');
+            startTimer(fiveHours, display);
+
+            updateChart();
+        };
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+
+
+
+    
