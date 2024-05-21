@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOE'S PRESALE</title>
+    <style>
+        :root {
+            --stage-font-size: 50px;
+            --price-font-size: 40px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            background-color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            position: relative;
+            background-image: url('sleepy_joe_10.png');
+            background-size: cover;
+            background-position: center;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .social-icons {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+        }
+
+        .social-icons img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content h1 {
+            font-size: 8vw;
+            margin-bottom: 30px;
+        }
+
+        .timer-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stage-info {
+            font-size: var(--stage-font-size);
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .timer {
+            font-size: 6vw;
+            padding: 10px;
+            border: 2px solid black;
+            display: inline-block;
+        }
+
+        .progress-bar-container {
+            width: 80%;
+            background-color: #f3f3f3;
+            border-radius: 25px;
+            overflow: hidden;
+            margin: 20px auto;
+        }
+
+        .progress-bar {
+            height: 50px;
+            background-color: #4caf50;
+            width: 0%;
+            border-radius: 25px;
+        }
+
+        .price {
+            font-size: var(--price-font-size);
+            margin-top: 10px;
+            width: 100%;
+            color: rgb(43, 151, 0);
+        }
+
+        .button-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .buy-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 20px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 5px #ff0000, 0 10px 10px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #ff0000, #0400ff);
+        }
+
+        .buy-button:active {
+            box-shadow: 0 2px #1100ff, 0 5px 5px rgba(0, 0, 0, 0.2);
+            transform: translateY(3px);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .stats div {
+            font-size: 4vw;
+            display: flex;
+            align-items: center;
+            margin: 10px 20px;
+            min-width: 200px;
+        }
+
+        .stats img {
+            max-width: 50px;
+            margin-right: 10px;
+        }
+
+        .meme-section {
+            margin: 40px 0;
+        }
+
+        .meme-section img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: 10px 0;
+        }
+
+        .meme-section h2 {
+            font-size: 6vw;
+            margin: 10px 0;
+        }
+
+        .footer {
+            margin: 40px 0;
+            font-size: 4vw;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: black;
+            margin: 0 20px;
+        }
+
+        .tokenomics {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .tokenomics h2 {
+            font-size: 8vw;
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 800px;
+            height: 80vh;
+        }
+
+        @media (min-width: 768px) {
+            .content h1 {
+                font-size: 64px;
+            }
+
+            .timer {
+                font-size: 48px;
+            }
+
+            .stats div {
+                font-size: 24px;
+            }
+
+            .meme-section h2 {
+                font-size: 32px;
+            }
+
+            .footer {
+                font-size: 24px;
+            }
+
+            .tokenomics h2 {
+                font-size: 36px;
+            }
+        }
+
+        .solana-address-container {
+            margin-top: 10px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .solana-address-title {
+            font-size: 24px;
+            margin-top: 50px;
+            margin-bottom: 5px;
+        }
+
+        .solana-address {
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: none;
+            width: 50px;
+            height: 50px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 1000;
+            box-shadow: 0 4px #999;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #555;
+        }
+
+        #scrollToTopBtn:active {
+            box-shadow: 0 2px #666;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="sleepy_joe_10.png" alt="Header Image" style="width: 100%;">
+        <div class="social-icons">
+            <a href="https://twitter.com/wake_up_joe2024" target="_blank">
+                <img src="twitter.png" alt="X">
+            </a>
+            <a href="https://t.me/+40J6C5AywmczNTIy" target="_blank">
+                <img src="telegram.png" alt="Telegram">
+            </a>
+            <a href="https://dexscreener.com" target="_blank">
+                <img src="dexscreener.png" alt="Dexscreener">
+            </a>
+        </div>
+    </header>
+    <div class="content">
+        <h1>$WUPJ has already started!</h1>
+        <!-- Stage info text with adjustable font size -->
+        <div class="stage-info" id="stage-info">Presale</div>
+        <div class="timer-container">
+            <div class="timer" id="timer">TIMER</div>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <!-- Price text with adjustable font size -->
+        <div class="price" id="price">Price: $0</div>
+        <div class="button-container">
+            <button class="buy-button" onclick="alert('wake up!')">Buy Now</button>
+        </div>
+        <div class="solana-address-container">
+            <div class="solana-address-title">Solana Address</div>
+            <div class="solana-address">HqaT8PHyLXBkbYidX8CQ7fbcpzzSzLvkMX6DQ6GHxLiy</div>
+        </div>
+        <div class="stats">
+            <div>
+                <img id="raised-img" src="star.png" alt="Raised Image">Already raised: 584.662
+            </div>
+            <div>
+                <img id="supply-img" src="star.png" alt="Supply Image">Total supply: 10,000,000,000
+            </div>
+        </div>
+        <div class="meme-section">
+            <img id="scalable-img" src="Trump_I_Want_YOU.png" alt="Your Image">
+        </div>
+        <div class="tokenomics">
+            <h2>Tokenomics</h2>
+            <div class="chart-container">
+                <canvas id="tokenomicsChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <button id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Zeige den Button, wenn der Benutzer 20px nach unten scrollt
+        window.onscroll = function () {
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.style.display = 'block';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        };
+
+        // Scrolle zurück zum Seitenanfang
+        function scrollToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+
+        // Presale configuration
+        const presaleData = [
+            { stage: 1, price: 0.0000863 },
+            { stage: 2, price: 0.0000949 },
+            { stage: 3, price: 0.0001035 },
+            { stage: 4, price: 0.0001121 },
+            { stage: 5, price: 0.0001208 },
+            { stage: 6, price: 0.0001294 },
+            { stage: 7, price: 0.0001380 },
+            { stage: 8, price: 0.0001466 },
+            { stage: 9, price: 0.0001553 },
+            { stage: 10, price: 0.0001639 },
+        ];
+
+        const stages = 10;
+        const stageDuration = 72 * 60 * 60 * 1000; // 72 hours in milliseconds
+        let currentStage = 1;
+        let stageEndDate = new Date();
+        let stageInterval;
+        let timerInterval;
+
+        // Utility function to parse date and time string
+        function parseDateTime(dateTimeString) {
+            const [date, time] = dateTimeString.split(' ');
+            const [day, month, year] = date.split('.').map(Number);
+            const [hours, minutes] = time.split(':').map(Number);
+            return new Date(year, month - 1, day, hours, minutes);
+        }
+
+        // Function to update stage information
+        function updateStage(stage) {
+            const stageInfo = document.getElementById('stage-info');
+            const priceInfo = document.getElementById('price');
+            const stageData = presaleData.find(data => data.stage === stage);
+
+            if (stageData) {
+                stageInfo.textContent = `Presale Stage ${stage} of ${stages}`;
+                priceInfo.textContent = `Price: $${stageData.price.toFixed(7)}`;
+                updateChart(stage);
+            }
+        }
+
+        // Function to update timer display
+        function updateTimerDisplay(endDate, display) {
+            function update() {
+                const now = new Date();
+                const timeLeft = endDate - now;
+
+                if (timeLeft <= 0) {
+                    display.textContent = "00:00:00";
+                    clearInterval(timerInterval);
+                    return;
+                }
+
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                if (days > 0) {
+                    display.textContent = `${days} Day${days > 1 ? 's' : ''}`;
+                } else {
+                    display.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+
+                // Update the progress bar
+                const totalTime = stageDuration;
+                const elapsedTime = totalTime - timeLeft;
+                const progressPercentage = (elapsedTime / totalTime) * 100;
+                document.getElementById('progress-bar').style.width = progressPercentage + '%';
+            }
+
+            update();
+            timerInterval = setInterval(update, 1000);
+        }
+
+        // Function to advance to the next stage
+        function advanceStage() {
+            currentStage++;
+            if (currentStage > stages) {
+                clearInterval(stageInterval);
+                document.getElementById('timer').textContent = "PRESALE ENDED";
+                return;
+            }
+            stageEndDate = new Date(stageEndDate.getTime() + stageDuration);
+            updateStage(currentStage);
+            updateTimerDisplay(stageEndDate, document.getElementById('timer'));
+        }
+
+        // Initialize presale process
+        function initializePresale(startDate) {
+            const now = new Date();
+            const elapsed = now - startDate;
+
+            currentStage = Math.min(Math.floor(elapsed / stageDuration) + 1, stages);
+            const timeInCurrentStage = elapsed % stageDuration;
+            stageEndDate = new Date(now.getTime() + (stageDuration - timeInCurrentStage));
+
+            updateStage(currentStage);
+            updateTimerDisplay(stageEndDate, document.getElementById('timer'));
+
+            if (currentStage < stages) {
+                stageInterval = setInterval(advanceStage, stageDuration - timeInCurrentStage);
+            }
+        }
+
+        // Chart update function
+        let chartInstance;
+
+        function updateChart(stage) {
+            const ctx = document.getElementById('tokenomicsChart').getContext('2d');
+            const data = {
+                labels: Array.from({ length: stages }, (_, i) => `Stage ${i + 1}`).concat(['Marketing', 'Liquidity']),
+                datasets: [{
+                    data: new Array(stages).fill(5).concat([25, 25]),
+                    backgroundColor: Array.from({ length: stages }, (_, i) =>
+                        i < stage ? 'rgba(192,192,192,0.5)' : '#36A2EB'
+                    ).concat(['#FF6384', '#FFCE56']),
+                    borderColor: Array.from({ length: stages }, (_, i) =>
+                        i < stage ? '#808080' : '#36A2EB'
+                    ).concat(['#FF6384', '#FFCE56']),
+                    borderWidth: 1
+                }]
+            };
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    let label = context.label || '';
+                                    if (context.dataIndex < stage) {
+                                        label += ' (Sold)';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize presale on window load
+        window.onload = function () {
+            const startDateString = "10.05.2024 12:00";
+            const startDate = parseDateTime(startDateString);
+            initializePresale(startDate);
+        };
+    </script>
+</body>
+
+</html>
